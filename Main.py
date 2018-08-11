@@ -21,6 +21,7 @@ except ImportError:
 
 import Main_support
 from speech import readandspeak as rs
+from Readfile import readfile as rf
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
@@ -91,7 +92,7 @@ class New_Toplevel:
         self.Button1.configure(width=74)
 
         self.Button2 = Button(top,command=func)
-        self.Button2.place(relx=0.52, rely=0.64, height=33, width=92)
+        self.Button2.place(relx=0.42, rely=0.64, height=33, width=92)
         self.Button2.configure(activebackground="#d9d9d9")
         self.Button2.configure(activeforeground="#000000")
         self.Button2.configure(background="#d9d9d9")
@@ -103,6 +104,34 @@ class New_Toplevel:
         self.Button2.configure(text='''Speak''')
         self.Button2.configure(width=92)
 
+        self.Button3 = Button(top,command=rf.read)
+        self.Button3.place(relx=0.62, rely=0.64, height=33, width=92)
+        self.Button3.configure(activebackground="#d9d9d9")
+        self.Button3.configure(activeforeground="#000000")
+        self.Button3.configure(background="#d9d9d9")
+        self.Button3.configure(disabledforeground="#a3a3a3")
+        self.Button3.configure(foreground="#000000")
+        self.Button3.configure(highlightbackground="#d9d9d9")
+        self.Button3.configure(highlightcolor="black")
+        self.Button3.configure(pady="0")
+        self.Button3.configure(text='''Read file''')
+        self.Button3.configure(width=92)
+
+        def stop_process():
+        	root.after(1,rf.stop)
+
+        self.Button4 = Button(top,command=stop_process)
+        self.Button4.place(relx=0.82, rely=0.64, height=33, width=92)
+        self.Button4.configure(activebackground="#d9d9d9")
+        self.Button4.configure(activeforeground="#000000")
+        self.Button4.configure(background="#d9d9d9")
+        self.Button4.configure(disabledforeground="#a3a3a3")
+        self.Button4.configure(foreground="#000000")
+        self.Button4.configure(highlightbackground="#d9d9d9")
+        self.Button4.configure(highlightcolor="black")
+        self.Button4.configure(pady="0")
+        self.Button4.configure(text='''Stop''')
+        self.Button4.configure(width=92)
 
 
 
