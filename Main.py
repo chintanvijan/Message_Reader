@@ -22,7 +22,9 @@ except ImportError:
 import Main_support
 from speech import readandspeak as rs
 from Readfile import readfile as rf
-
+import multiprocessing
+from multiprocessing.pool import ThreadPool
+_FINISH = False
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
@@ -73,11 +75,28 @@ class New_Toplevel:
         self.Entry1.configure(width=494)
 
         def func():
+      
         	t = self.Entry1.get()
-        	rs.speak(t)
+        	#rs.speak(t)
+        	if _FINISH == True:
+        		rf.stop()
+        	for i in t:
+        		word = t.split(" ")
+        	
+        	if _FINISH == False:
+        		p2 = multiprocessing.Process(name='p2',target=rs.speak,args=(word,))
+        		p2.start()
         def clear():
         	self.Entry1.delete(0,END)
-
+        
+        def stop_main():
+        	global _FINISH
+        	pool=ThreadPool(processes=1)
+        	pool.apply_async(func)
+        	_FINISH = True
+        	pool.terminate()
+        	pool.join()    		
+    		
         self.Button1 = Button(top,command=clear)
         self.Button1.place(relx=0.22, rely=0.64, height=33, width=74)
         self.Button1.configure(activebackground="#d9d9d9")
@@ -120,7 +139,7 @@ class New_Toplevel:
         def stop_process():
         	root.after(1,rf.stop)
 
-        self.Button4 = Button(top,command=stop_process)
+        self.Button4 = Button(top,command=stop_main)
         self.Button4.place(relx=0.82, rely=0.64, height=33, width=92)
         self.Button4.configure(activebackground="#d9d9d9")
         self.Button4.configure(activeforeground="#000000")
@@ -138,7 +157,9 @@ class New_Toplevel:
 
 
 if __name__ == '__main__':
-    vp_start_gui()
+	p1 = multiprocessing.Process(name='p1',target=vp_start_gui)
+	p1.start()
+    #vp_start_gui()
 
 
 
