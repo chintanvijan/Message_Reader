@@ -78,7 +78,8 @@ class New_Toplevel:
       
         	t = self.Entry1.get()
         	#rs.speak(t)
-        	if _FINISH == True:
+        	"""
+            if _FINISH == True:
         		rf.stop()
         	for i in t:
         		word = t.split(" ")
@@ -86,9 +87,10 @@ class New_Toplevel:
         	if _FINISH == False:
         		p2 = multiprocessing.Process(name='p2',target=rs.speak,args=(word,))
         		p2.start()
+                """
         def clear():
         	self.Entry1.delete(0,END)
-        
+        """
         def stop_main():
         	global _FINISH
         	pool=ThreadPool(processes=1)
@@ -96,7 +98,7 @@ class New_Toplevel:
         	_FINISH = True
         	pool.terminate()
         	pool.join()    		
-    		
+    		"""
         self.Button1 = Button(top,command=clear)
         self.Button1.place(relx=0.22, rely=0.64, height=33, width=74)
         self.Button1.configure(activebackground="#d9d9d9")
@@ -123,7 +125,7 @@ class New_Toplevel:
         self.Button2.configure(text='''Speak''')
         self.Button2.configure(width=92)
 
-        self.Button3 = Button(top,command=rf.read)
+        self.Button3 = Button(top,command=rf.read1)
         self.Button3.place(relx=0.62, rely=0.64, height=33, width=92)
         self.Button3.configure(activebackground="#d9d9d9")
         self.Button3.configure(activeforeground="#000000")
@@ -139,7 +141,7 @@ class New_Toplevel:
         def stop_process():
         	root.after(1,rf.stop)
 
-        self.Button4 = Button(top,command=stop_main)
+        self.Button4 = Button(top,command=rf.stop)
         self.Button4.place(relx=0.82, rely=0.64, height=33, width=92)
         self.Button4.configure(activebackground="#d9d9d9")
         self.Button4.configure(activeforeground="#000000")
@@ -157,9 +159,9 @@ class New_Toplevel:
 
 
 if __name__ == '__main__':
-	p1 = multiprocessing.Process(name='p1',target=vp_start_gui)
-	p1.start()
-    #vp_start_gui()
+	#p1 = multiprocessing.Process(name='p1',target=vp_start_gui)
+	#p1.start()
+    vp_start_gui()
 
 
 
